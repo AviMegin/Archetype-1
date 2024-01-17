@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Archetype Quiz</title>
+        <link rel="stylesheet" href="../static/styles.css">
+    </head>
+    <body>
+        <div id="container">
+            <div id="left-side"></div>
+            <div id="right-side">
+              <img id="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+              <div id="right-side-text">
+                    <h1>Welcome to the Archetype Quiz</h1>
+                    <p>Om te bepalen wat jouw archetype is hebben we 3 korte
+                        vragen voor je.</p>
+                    <button id="button"><a href="/start_quiz">Start the Quiz</a></button>
+                </div>
+            </div>
+        </div>
+    </html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archetype Prediction</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <div id="container">
+        <div id="left-side">
+            <!-- Add a smaller canvas for the chart -->
+            <canvas id="archetypeChart" width="400" height="400"></canvas>
+        </div>
+        <div id="right-side">
+        
+          <div id="right-side-text">
+    {% if prediction_result %}
+    <p>Jouw archetype is:<b>{{ prediction_result['predictedGroup'] }}</b> </p>
+    <br>
+    <p><strong>Wat betekent dit?</strong></p>
+    <ul>
+        {% for result in prediction_result['archetypeResults'] %}
+           <br>
+                <strong>{{ result['archetype'] }}:</strong> {{ "%.2f" | format(result['probability'] * 100) }}% - {{ result['description'] }}
+       
+        {% endfor %}
+    </ul>
+    <button id="button">Verder</button>
+    <!-- JavaScript code to create the chart -->
+    <script>
+        // Get the archetype results from the prediction result
+        var archetypeResults = {{ prediction_result['archetypeResults']|tojson|safe }};
+
+        // Extract labels and data for the chart
+        var labels = archetypeResults.map(function(result) {
+            return result['archetype'];
+        });
+
+        var data = archetypeResults.map(function(result) {
+            return result['probability'] * 100;
+        });
+
+        // Create a smaller doughnut chart
+        var ctx = document.getElementById('archetypeChart').getContext('2d');
+        var myDoughnutChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: ['#FFF48F', '#9732B3', '#4489FF', '#F19CD7'], // Customize the colors
+                }],
+            },
+            options: {
+                color: 'white', 
+                responsive: false, // Disable automatic resizing
+                maintainAspectRatio: false, // Disable maintaining aspect ratio
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var dataset = data.datasets[tooltipItem.datasetIndex];
+                            var label = data.labels[tooltipItem.index];
+                            var value = dataset.data[tooltipItem.index];
+                            return label + ': ' + value.toFixed(2) + '%';
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+{% endif %}
+</div>
+</div>
+</div>
+
+</body>
+</html>

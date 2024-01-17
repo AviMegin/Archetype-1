@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archetype Quiz - Question 3</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <div id="container">
+        <div id="left-side"></div>
+        <div id="right-side">
+          <img id="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+          <div id="right-side-text">
+    <h1>Vraag <b>3</b> van de <b>3</b></h1>
+    <form method="post">
+        <label for="question_3">In sociale situaties, welke rol vind je vaak dat je speelt?</label>
+        <input type="text" name="question_3" required>
+        <button type="submit">Verder</button>
+    </form>
+</div>
+</div>
+</div>
+</body>
+</html>
